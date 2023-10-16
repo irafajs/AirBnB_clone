@@ -40,8 +40,8 @@ class TestBaseModel(unittest.TestCase):
 
     def test_str(self):
         """method to test str represantation"""
-        expected_str = f"[{self.base_model.__class__.__name__}](
-            {self.base_model.id}) {self.base_model.__dict__}"
+        expected_str = (f"[{self.base_model.__class__.__name__}] "
+                        f"({self.base_model.id}) {self.base_model.__dict__}")
         self.assertEqual(str(self.base_model), expected_str)
 
 

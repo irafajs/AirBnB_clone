@@ -109,7 +109,7 @@ class HBNBCommand(cmd.Cmd):
         if args:
             class_name = args[0]
             if class_name not in HBNBCommand.classes:
-                print("** class doesn't exist**")
+                print("** class doesn't exist **")
                 return
             for key, value in storage.all().items():
                 if key.split('.')[0] == class_name:
