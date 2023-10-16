@@ -148,6 +148,33 @@ class HBNBCommand(cmd.Cmd):
         setattr(storage.all()[key], attribute_name, attribute_value)
         storage.all()[key].save()
 
+    def parse_and_call_all(self, arg):
+        """call all method when input is in format classname.all()"""
+        parts = arg.strip('()').split('.')
+        class_name, method = parts
+        if method == 'count':
+            self.do_count(class_name)
+        else:
+            self.do_all(class_name)
+
+    def default(self, line):
+        """default when the inpupt is not know this method is called"""
+        if line.endswith('()'):
+            self.parse_and_call_all(line)
+        else:
+            super().default(line)
+
+    def do_count(self, arg):
+        """return number of instances of a defined class"""
+        parts = arg.strip('()').split('.')
+        class_name, method = parts
+        if class_name in HBNBCommand.classes:
+            class_instance_count = 0
+            for key in storage.all().values():
+                if isinstance(key, HBNBCommand.classes[class_name]):
+                    class_instance_count += 1
+            print(class_instance_count)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
